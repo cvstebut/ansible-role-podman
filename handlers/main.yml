@@ -24,3 +24,15 @@
   run_once: true
   changed_when: false
   failed_when: false
+
+- name: podman-iptable
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ podman_ip_modules }}"
+  changed_when: false
+  failed_when: false
+
+- name: podman-delegate
+  ansible.builtin.systemd:
+    daemon_reload: yes

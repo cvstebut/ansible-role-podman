@@ -23,11 +23,8 @@
     regexp: "^{{ item }}"
     line: "{{ item }}"
     create: True
-  loop:
-    - "ip6_tables"
-    - "ip6table_nat"
-    - "ip_tables"
-    - "iptable_nat"
+  loop: "{{ podman_ip_modules }}"
+  notify: podman-iptable
 
 - name: Enable ip / ip6 modules at boot time
   community.general.ini_file:
@@ -36,3 +33,4 @@
     option: Delegate
     value: yes
     create: True
+  notify: podman-delegate

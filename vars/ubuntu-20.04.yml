@@ -27,3 +27,9 @@ _apt_repository:
 
 _apt:
   - { state: "latest", name: "podman" }
+
+podman_ip_modules:
+  - "ip6_tables"
+  - "ip6table_nat"
+  - "ip_tables"
+  - "iptable_nat"

@@ -18,14 +18,16 @@
   include_tasks: "debian.yml"
 
 - name: Enable ip / ip6 modules at boot time
-  ansible.builtin.copy:
+  ansible.builtin.lineinfile:
     path: /etc/modules-load.d/iptables.conf
-    content: |
-      ip6_tables
-      ip6table_nat
-      ip_tables
-      iptable_nat
+    regexp: "^{{ item }}"
+    line: "{{ item }}"
     create: True
+  loop:
+    - "ip6_tables"
+    - "ip6table_nat"
+    - "ip_tables"
+    - "iptable_nat"
 
 - name: Enable ip / ip6 modules at boot time
   community.general.ini_file:
